@@ -1,0 +1,57 @@
+--[[
+    GD50
+    Legend of Zelda
+
+    -- constants --
+
+    Author: Colton Ogden
+    cogden@cs50.harvard.edu
+]]
+
+VIRTUAL_WIDTH = 384
+VIRTUAL_HEIGHT = 216
+
+WINDOW_WIDTH = 1280
+WINDOW_HEIGHT = 720
+
+TILE_SIZE = 16
+
+--
+-- entity constants
+--
+PLAYER_WALK_SPEED = 60
+
+--
+-- projective constants
+--
+PROJECTILE_SPEED = 10
+SHOOT_INTERVAL = 10
+--
+-- map constants
+--
+--MAP_WIDTH = VIRTUAL_WIDTH / TILE_SIZE - 2
+-- MAP_HEIGHT = math.floor(VIRTUAL_HEIGHT / TILE_SIZE) - 2
+MAP_WIDTH = 100
+MAP_HEIGHT = 100
+
+MAP_RENDER_OFFSET_X = (VIRTUAL_WIDTH - (MAP_WIDTH * TILE_SIZE)) / 2
+MAP_RENDER_OFFSET_Y = (VIRTUAL_HEIGHT - (MAP_HEIGHT * TILE_SIZE)) / 2
+
+--
+-- tile IDs
+--
+TILE_TOP_LEFT_CORNER = 9
+TILE_TOP_RIGHT_CORNER = 11
+TILE_BOTTOM_LEFT_CORNER = 13
+TILE_BOTTOM_RIGHT_CORNER = 15
+
+TILE_EMPTY = 18
+
+TILE_FLOORS = {
+    1, 2, 3
+}
+
+TILE_TOP_WALLS = {10}
+TILE_BOTTOM_WALLS = {14}
+TILE_LEFT_WALLS = {12}
+TILE_RIGHT_WALLS = {16}
