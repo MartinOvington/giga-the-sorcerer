@@ -8,7 +8,7 @@
 
 Projectile = Class{}
 
-function Projectile:init(def, x, y, dx, dy)
+function Projectile:init(def, dx, dy)
     -- string identifying this object type
     self.type = def.type
 
@@ -27,8 +27,8 @@ function Projectile:init(def, x, y, dx, dy)
     self.height = def.height
     self.dx = dx
     self.dy = dy
-    self.x = x
-    self.y = y
+    self.x = def.x
+    self.y = def.y
     self.distTravelled = 0
     self.destroyed = false
 
@@ -37,7 +37,7 @@ function Projectile:init(def, x, y, dx, dy)
 end
 
 function Projectile:update(dt)
-    if self.distTravelled >= TILE_SIZE * 4 then
+    if self.distTravelled >= TILE_SIZE * PROJECTILE_TRAVEL_DIST then
         self.destroyed = true
     end
     

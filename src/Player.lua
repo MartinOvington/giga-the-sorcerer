@@ -12,6 +12,7 @@ function Player:init(def)
     Entity.init(self, def)
     self.wand = Wand(1)
     self.wand:init()
+    self.shot_cooldown = 0
 end
 
 function Player:update(dt)

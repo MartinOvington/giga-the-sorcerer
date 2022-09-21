@@ -19,7 +19,7 @@ function PlayerShootIdleState:enter(player, dungeon)
     -- render offset for spaced character sprite (negated in render function of state)
     self.entity.offsetY = 0
     self.entity.offsetX = 1
-    self.shoot_timer = 0
+    self.shot_cooldown = 0
     self:faceMouse()
 end
 
@@ -60,13 +60,22 @@ function PlayerShootIdleState:faceMouse()
 end
 
 function PlayerShootIdleState:update(dt)
-    self:faceMouse()
-    if self.shoot_timer < SHOOT_INTERVAL then
-        self.shoot_timer = self.shoot_timer + dt
-        gSounds['player-shoot']:play()
-        self:faceMouse()
+    if self.entity.shot_cooldown > 0 then
+        self.entity.shot_cooldown = self.entity.shot_cooldown - dt
     else
-        self.shoot_timer = 0
+        self.entity.shot_cooldown = SHOT_COOLDOWN
+        local midX = VIRTUAL_WIDTH / 2
+        local midY = VIRTUAL_HEIGHT / 2
+        local relativeSquaredX = (self.entity.wand.x - midX) * (self.entity.wand.x - midX)
+        local relativeSquaredY = (self.entity.wand.y - midY) * (self.entity.wand.y - midY)
+        vector_mag = math.sqrt(relativeSquaredX + relativeSquaredY)
+        --normalize mouse vector
+        local dx = (self.entity.wand.x - midX) / vector_mag
+        local dy = (self.entity.wand.y - midY) / vector_mag
+        gSounds['player-shoot']:play()
+        table.insert(self.dungeon.currentRoom.projectiles,
+            Projectile(GameObject(GAME_OBJECT_DEFS['shot'], self.entity.x, self.entity.y), dx, dy))
+        self:faceMouse()
     end
 
     if not love.mouse.wasPressed(1) and not love.mouse.isDown(1) then

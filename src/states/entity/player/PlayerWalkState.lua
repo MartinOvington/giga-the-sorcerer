@@ -18,6 +18,11 @@ function PlayerWalkState:init(player, dungeon)
 end
 
 function PlayerWalkState:update(dt)
+    if (love.mouse.wasPressed(1) or love.mouse.isDown(1)) and 
+    (love.keyboard.isDown('w') or love.keyboard.isDown('a') or
+    love.keyboard.isDown('s') or love.keyboard.isDown('d')) then
+        self.entity:changeState('shoot-walk')
+    end
     if love.keyboard.isDown('a') then
         self.entity.direction = 'left'
         self.entity:changeAnimation('walk-left')

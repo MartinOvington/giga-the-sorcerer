@@ -41,21 +41,18 @@ GAME_OBJECT_DEFS = {
             }
         }
     },
-    ['pot'] = {
-        type = 'pot',
-        texture = 'tiles',
-        frame = 110,
-        width = 16,
-        height = 16,
-        solid = true,
-        defaultState = 'onFloor',
+    ['shot'] = {
+        type = 'shot',
+        texture = 'projectile',
+        frame = 1,
+        width = 12,
+        height = 12,
+        solid = false,
+        defaultState = 'live',
         states = {
-            ['onFloor'] = {
-                frame = 110
+            ['live'] = {
+                frame = 1
             },
-            ['pickedUp'] = {
-                frame = 110
-            }
         }
     }
 }

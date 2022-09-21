@@ -24,8 +24,9 @@ PLAYER_WALK_SPEED = 60
 --
 -- projective constants
 --
-PROJECTILE_SPEED = 10
-SHOOT_INTERVAL = 10
+PROJECTILE_SPEED = 15
+PROJECTILE_TRAVEL_DIST = 10
+SHOT_COOLDOWN = 0.5
 --
 -- map constants
 --
