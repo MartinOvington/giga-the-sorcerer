@@ -8,9 +8,9 @@
 
 PlayerShootWalkState = Class{__includes = EntityWalkState}
 
-function PlayerShootWalkState:init(player, dungeon)
+function PlayerShootWalkState:init(player, level)
     self.entity = player
-    self.dungeon = dungeon
+    self.level = level
 
     -- render offset for spaced character sprite; negated in render function of state
     self.entity.offsetY = 0
@@ -69,7 +69,7 @@ function PlayerShootWalkState:update(dt)
             local dx = (self.entity.wand.x - midX) / vector_mag
             local dy = (self.entity.wand.y - midY) / vector_mag
             gSounds['player-shoot']:play()
-            table.insert(self.dungeon.currentRoom.projectiles,
+            table.insert(self.level.projectiles,
                 Projectile(GameObject(GAME_OBJECT_DEFS['shot'], self.entity.x, self.entity.y), dx, dy))
             self:faceMouse()
         end

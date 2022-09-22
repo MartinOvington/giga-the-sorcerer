@@ -8,11 +8,11 @@
 
 EntityWalkState = Class{__includes = BaseState}
 
-function EntityWalkState:init(entity, dungeon)
+function EntityWalkState:init(entity, level)
     self.entity = entity
     self.entity:changeAnimation('walk-down')
 
-    self.dungeon = dungeon
+    self.level = level
     -- used for AI control
     self.moveDuration = 0
     self.movementTimer = 0
@@ -61,9 +61,9 @@ function EntityWalkState:update(dt)
         end
     end
 
-    if self.dungeon then
-        for k, object in pairs(self.dungeon.currentRoom.objects) do
-            if object.type == 'pot' and self.entity:collides(object) then
+    if self.level then
+        for k, object in pairs(self.level.objects) do
+            if object.type == 'rock' and self.entity:collides(object) then
                 if self.entity.direction == 'left' then
                     self.entity.x = self.entity.x + self.entity.walkSpeed * dt
                 elseif self.entity.direction == 'right' then
@@ -112,7 +112,6 @@ function EntityWalkState:render()
     local anim = self.entity.currentAnimation
     love.graphics.draw(gTextures[anim.texture], gFrames[anim.texture][anim:getCurrentFrame()],
         math.floor(self.entity.x - self.entity.offsetX), math.floor(self.entity.y - self.entity.offsetY))
-    
     -- debug code
     -- love.graphics.setColor(255, 0, 255, 255)
     -- love.graphics.rectangle('line', self.entity.x, self.entity.y, self.entity.width, self.entity.height)

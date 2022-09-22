@@ -19,9 +19,9 @@ function StartState:update(dt)
 end
 
 function StartState:render()
-    love.graphics.draw(gTextures['background'], 0, 0, 0, 
-        VIRTUAL_WIDTH / gTextures['background']:getWidth(),
-        VIRTUAL_HEIGHT / gTextures['background']:getHeight())
+    love.graphics.draw(gTextures['menu-background'], 0, 0, 0, 
+        VIRTUAL_WIDTH / gTextures['menu-background']:getWidth(),
+        VIRTUAL_HEIGHT / gTextures['menu-background']:getHeight())
 
     love.graphics.setFont(gFonts['freedom'])
     love.graphics.setColor(34/255, 34/255, 34/255, 1)

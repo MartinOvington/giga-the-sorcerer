@@ -7,20 +7,17 @@
 ]]
 
 GAME_OBJECT_DEFS = {
-    ['switch'] = {
-        type = 'switch',
-        texture = 'switches',
+    ['rock'] = {
+        type = 'rock',
+        texture = 'tiles',
         frame = 2,
-        width = 16,
-        height = 16,
-        solid = false,
-        defaultState = 'unpressed',
+        width = 12,
+        height = 12,
+        solid = true,
+        defaultState = 'rock',
         states = {
-            ['unpressed'] = {
-                frame = 2
-            },
-            ['pressed'] = {
-                frame = 1
+            ['rock'] = {
+                frame = 4
             }
         }
     },

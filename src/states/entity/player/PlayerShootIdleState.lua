@@ -8,13 +8,13 @@
 
 PlayerShootIdleState = Class{__includes = EntityIdleState}
 
-function PlayerShootIdleState:init(player, dungeon)
+function PlayerShootIdleState:init(player, level)
     self.entity = player
-    self.dungeon = dungeon
+    self.level = level
     self.entity:changeAnimation('idle-' .. self.entity.direction)
 end
 
-function PlayerShootIdleState:enter(player, dungeon)
+function PlayerShootIdleState:enter(player, level)
     
     -- render offset for spaced character sprite (negated in render function of state)
     self.entity.offsetY = 0
@@ -73,7 +73,7 @@ function PlayerShootIdleState:update(dt)
         local dx = (self.entity.wand.x - midX) / vector_mag
         local dy = (self.entity.wand.y - midY) / vector_mag
         gSounds['player-shoot']:play()
-        table.insert(self.dungeon.currentRoom.projectiles,
+        table.insert(self.level.projectiles,
             Projectile(GameObject(GAME_OBJECT_DEFS['shot'], self.entity.x, self.entity.y), dx, dy))
         self:faceMouse()
     end

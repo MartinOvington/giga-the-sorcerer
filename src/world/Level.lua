@@ -6,9 +6,9 @@
     cogden@cs50.harvard.edu
 ]]
 
-Room = Class{}
+Level = Class{}
 
-function Room:init(player)
+function Level:init(player)
     self.width = MAP_WIDTH
     self.height = MAP_HEIGHT
 
@@ -18,22 +18,21 @@ function Room:init(player)
     -- reference to player for collisions, etc.
     self.player = player
 
-    -- entities in the room
+    -- entities in the level
     self.entities = {}
     self:generateEntities()
 
-    -- game objects in the room
+    -- game objects in the level
     self.objects = {}
     self:generateObjects()
 
-    -- projectile objects in the room
+    -- projectile objects in the level
     self.projectiles = {}
 
-    -- used for centering the dungeon rendering
+    -- used for centering the level rendering
     self.renderOffsetX = MAP_RENDER_OFFSET_X
     self.renderOffsetY = MAP_RENDER_OFFSET_Y
 
-    -- used for drawing when this room is the next room, adjacent to the active
     self.adjacentOffsetX = 0
     self.adjacentOffsetY = 0
 end
@@ -41,7 +40,7 @@ end
 --[[
     Randomly creates an assortment of enemies for the player to fight.
 ]]
-function Room:generateEntities()
+function Level:generateEntities()
     local types = {'skeleton', 'slime', 'bat', 'ghost', 'spider'}
     for i = 1, 30 do
         local type = types[math.random(#types)]
@@ -60,12 +59,11 @@ function Room:generateEntities()
             height = 16,
 
             health = 1,
-
             player = self.player
         })
 
         self.entities[i].stateMachine = StateMachine {
-            ['walk'] = function() return EntityWalkState(self.entities[i]) end,
+            ['walk'] = function() return EntityWalkState(self.entities[i], self) end,
             ['idle'] = function() return EntityIdleState(self.entities[i]) end,
             ['agro'] = function() return EntityAgroState(self.entities[i]) end
         }
@@ -77,26 +75,15 @@ end
 --[[
     Randomly creates an assortment of obstacles for the player to navigate around.
 ]]
-function Room:generateObjects()
-    --[[
-    local filledX = { math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,VIRTUAL_WIDTH - TILE_SIZE * 2 - 16) }
-    local filledY = { math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE, VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16) }
+function Level:generateObjects()
+    local filledX = {}
+    local filledY = {}
 
-    local switch = GameObject(
-        GAME_OBJECT_DEFS['switch'], filledX[1], filledY[1]   
-    )
 
-    -- define a function for the switch that will open all doors in the room
-    switch.onCollide = function()
-        if switch.state == 'unpressed' then
-           switch.state = 'pressed'
-        end
-    end
-
-    for i = 1, 3 do
+    for i = 1, NUMBER_OF_ROCKS do
         ::start::
-        local x = math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,VIRTUAL_WIDTH - TILE_SIZE * 2 - 16)
-        local y = math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE, VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
+        local x = MAP_RENDER_OFFSET_X + TILE_SIZE * math.random(1, self.height -2)
+        local y = MAP_RENDER_OFFSET_Y + TILE_SIZE * math.random(1, self.width -2)
         for j = 1, i do
             if x == filledX[j] and y == filledY[j] then
                 goto start
@@ -104,24 +91,21 @@ function Room:generateObjects()
         end
         filledX[i + 1] = x
         filledY[i + 1] = y
-        local pot = GameObject(
-            GAME_OBJECT_DEFS['pot'], x, y   
+        local rock = GameObject(
+            GAME_OBJECT_DEFS['rock'], x, y   
         )
-        pot.onCollide = function()
+        rock.onCollide = function()
             self.player.bumped = true
         end
-        table.insert(self.objects, pot)
+        table.insert(self.objects, rock)
     end
-    -- add to list of objects in scene (only one switch for now)
-    --table.insert(self.objects, switch)
-    ]]
 end
 
 --[[
-    Generates the walls and floors of the room, randomizing the various varieties
+    Generates the walls and floors of the level, randomizing the various varieties
     of said tiles for visual variety.
 ]]
-function Room:generateWallsAndFloors()
+function Level:generateWallsAndFloors()
     for y = 1, self.height do
         table.insert(self.tiles, {})
 
@@ -157,9 +141,9 @@ function Room:generateWallsAndFloors()
     end
 end
 
-function Room:update(dt)
+function Level:update(dt)
     
-    -- don't update anything if we are sliding to another room (we have offsets)
+    -- don't update anything if we are sliding to another level (we have offsets)
     if self.adjacentOffsetX ~= 0 or self.adjacentOffsetY ~= 0 then return end
 
     self.player:update(dt)
@@ -183,11 +167,11 @@ function Room:update(dt)
             end
             entity.dead = true
         elseif not entity.dead then
-            entity:processAI({room = self}, dt)
+            entity:processAI({level = self}, dt)
             entity:update(dt)
         end
 
-        -- collision between the player and entities in the room
+        -- collision between the player and entities in the level
         if not entity.dead and self.player:collides(entity) and not self.player.invulnerable then
             gSounds['hit-player']:play()
             self.player:damage(1)
@@ -218,7 +202,7 @@ function Room:update(dt)
     end
 end
 
-function Room:render()
+function Level:render()
     for y = 1, self.height do
         for x = 1, self.width do
             local tile = self.tiles[y][x]
@@ -243,6 +227,4 @@ function Room:render()
     if self.player then
         self.player:render()
     end
-
-    love.graphics.setStencilTest()
 end

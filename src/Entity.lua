@@ -27,6 +27,7 @@ function Entity:init(def)
 
     self.walkSpeed = def.walkSpeed
 
+    self.maxHealth = def.health
     self.health = def.health
 
     -- flags for flashing the entity when hit
@@ -130,6 +131,20 @@ function Entity:render(adjacentOffsetX, adjacentOffsetY)
         love.graphics.setColor(1, 0.3, 0.3, 1)
     end
     self.stateMachine:render()
+    love.graphics.setColor(1, 1, 1, 1)
+    -- Draw health bar
+    local healthRatio = self.health / self.maxHealth 
+    local width = math.floor(healthRatio * 15)
+    if healthRatio > 0.5 then
+        love.graphics.setColor(0, 1, 0, 1)
+    elseif healthRatio <= 0.25 then
+        love.graphics.setColor(1, 0, 0, 1)
+    else 
+        love.graphics.setColor(255, 165, 0, 255)
+    end
+    love.graphics.rectangle('fill', self.x - 1, self.y + self.height + 2, width, 3)
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.rectangle('line', self.x - 2, self.y + self.height + 1, 17, 4)
     love.graphics.setColor(1, 1, 1, 1)
     self.x, self.y = self.x - (adjacentOffsetX or 0), self.y - (adjacentOffsetY or 0)
 end

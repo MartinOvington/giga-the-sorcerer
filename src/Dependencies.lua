@@ -20,8 +20,7 @@ require 'src/Player'
 require 'src/StateMachine'
 require 'src/Util'
 
-require 'src/world/Dungeon'
-require 'src/world/Room'
+require 'src/world/Level'
 
 require 'src/states/BaseState'
 
@@ -41,7 +40,8 @@ require 'src/states/game/StartState'
 
 gTextures = {
     ['tiles'] = love.graphics.newImage('graphics/tiles.png'),
-    ['background'] = love.graphics.newImage('graphics/background.jpg'),
+    ['background'] = love.graphics.newImage('graphics/background.png'),
+    ['menu-background'] = love.graphics.newImage('graphics/menu-background.jpg'),
     ['hearts'] = love.graphics.newImage('graphics/hearts.png'),
     ['entities'] = love.graphics.newImage('graphics/entities.png'),
     ['projectile'] = love.graphics.newImage('graphics/projectile.png')
