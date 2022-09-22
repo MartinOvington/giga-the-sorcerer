@@ -15,6 +15,9 @@ function Room:init(player)
     self.tiles = {}
     self:generateWallsAndFloors()
 
+    -- reference to player for collisions, etc.
+    self.player = player
+
     -- entities in the room
     self.entities = {}
     self:generateEntities()
@@ -25,10 +28,6 @@ function Room:init(player)
 
     -- projectile objects in the room
     self.projectiles = {}
-
-
-    -- reference to player for collisions, etc.
-    self.player = player
 
     -- used for centering the dungeon rendering
     self.renderOffsetX = MAP_RENDER_OFFSET_X
@@ -44,8 +43,7 @@ end
 ]]
 function Room:generateEntities()
     local types = {'skeleton', 'slime', 'bat', 'ghost', 'spider'}
-
-    for i = 1, 10 do
+    for i = 1, 30 do
         local type = types[math.random(#types)]
 
         table.insert(self.entities, Entity {
@@ -61,12 +59,15 @@ function Room:generateEntities()
             width = 16,
             height = 16,
 
-            health = 1
+            health = 1,
+
+            player = self.player
         })
 
         self.entities[i].stateMachine = StateMachine {
             ['walk'] = function() return EntityWalkState(self.entities[i]) end,
-            ['idle'] = function() return EntityIdleState(self.entities[i]) end
+            ['idle'] = function() return EntityIdleState(self.entities[i]) end,
+            ['agro'] = function() return EntityAgroState(self.entities[i]) end
         }
 
         self.entities[i]:changeState('walk')
@@ -199,9 +200,9 @@ function Room:update(dt)
 
         for k, projectile in pairs(self.projectiles) do
             projectile:update(dt)
-            if not projectile.destroyed and entity:collides(projectile) then
+            if not projectile.destroyed and not entity.dead and entity:collides(projectile) then
                 projectile.destroyed = true
-                entity:damage(1)
+                entity:damage(0.5)
                 gSounds['hit-enemy']:play()
             end
         end

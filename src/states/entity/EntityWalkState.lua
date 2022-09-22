@@ -103,6 +103,9 @@ function EntityWalkState:processAI(params, dt)
     end
 
     self.movementTimer = self.movementTimer + dt
+    if self.entity.agro then
+        self.entity:changeState('agro')
+    end
 end
 
 function EntityWalkState:render()

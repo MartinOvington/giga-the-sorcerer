@@ -38,6 +38,20 @@ function Entity:init(def)
     self.flashTimer = 0
 
     self.dead = false
+    self.agro = false
+    self.player = def.player
+end
+
+function Entity:checkSetAgro()
+    if not self.player then
+        return
+    elseif math.sqrt((self.x - self.player.x) * (self.x - self.player.x) + (self.y - self.player.y) * (self.y - self.player.y))
+            <= AGRO_RANGE then
+        self.agro = true
+        self.walkSpeed = AGRO_WALK_SPEED
+    else
+        self.agro = false
+    end
 end
 
 function Entity:createAnimations(animations)
@@ -91,7 +105,7 @@ function Entity:update(dt)
             self.flashTimer = 0
         end
     end
-
+    self:checkSetAgro()
     self.stateMachine:update(dt)
 
     if self.currentAnimation then
@@ -112,6 +126,9 @@ function Entity:render(adjacentOffsetX, adjacentOffsetY)
     end
 
     self.x, self.y = self.x + (adjacentOffsetX or 0), self.y + (adjacentOffsetY or 0)
+    if self.agro then
+        love.graphics.setColor(1, 0.3, 0.3, 1)
+    end
     self.stateMachine:render()
     love.graphics.setColor(1, 1, 1, 1)
     self.x, self.y = self.x - (adjacentOffsetX or 0), self.y - (adjacentOffsetY or 0)

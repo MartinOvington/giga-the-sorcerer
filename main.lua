@@ -12,7 +12,8 @@ function love.load()
     math.randomseed(os.time())
     love.window.setTitle('Wrath of Giga')
     love.graphics.setDefaultFilter('nearest', 'nearest')
-    love.mouse.setVisible(false)
+    cursor = love.mouse.newCursor("graphics/reticle.png", 16, 16)
+    love.mouse.setCursor(cursor)
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
         vsync = true,

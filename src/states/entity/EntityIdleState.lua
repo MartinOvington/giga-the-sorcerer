@@ -23,7 +23,9 @@ end
     we can use this same state in our Player class and have it not take action.
 ]]
 function EntityIdleState:processAI(params, dt)
-    if self.waitDuration == 0 then
+    if self.entity.agro then
+        self.entity:changeState('agro')
+    elseif self.waitDuration == 0 then
         self.waitDuration = math.random(5)
     else
         self.waitTimer = self.waitTimer + dt

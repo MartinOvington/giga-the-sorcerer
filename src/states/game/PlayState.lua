@@ -63,7 +63,6 @@ function PlayState:render()
     love.graphics.push()
     love.graphics.translate(-math.floor(self.camX), -math.floor(self.camY))
     self.dungeon:render()
-    self.player.wand:render(self.camX, self.camY)
     love.graphics.pop()
 
     -- draw player hearts, top of screen
