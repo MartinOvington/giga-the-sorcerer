@@ -66,4 +66,8 @@ function PlayState:render()
     love.graphics.translate(-math.floor(self.camX), -math.floor(self.camY))
     self.level:render()
     love.graphics.pop()
+
+    love.graphics.setFont(gFonts['freedom-small'])
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.printf('Enemies: ' .. tostring(self.level.numEntitiesLeft), 2, 10, VIRTUAL_WIDTH - 10, 'right')
 end

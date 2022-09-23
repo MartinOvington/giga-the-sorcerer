@@ -39,12 +39,13 @@ function Entity:init(def)
     self.flashTimer = 0
 
     self.dead = false
+    self.agroTimer = AGRO_START_GRACE
     self.agro = false
     self.player = def.player
 end
 
 function Entity:checkSetAgro()
-    if not self.player then
+    if not self.player or self.agroTimer > 0 then
         return
     elseif math.sqrt((self.x - self.player.x) * (self.x - self.player.x) + (self.y - self.player.y) * (self.y - self.player.y))
             <= AGRO_RANGE then
@@ -107,6 +108,7 @@ function Entity:update(dt)
         end
     end
     self:checkSetAgro()
+    self.agroTimer = math.max(self.agroTimer - dt, 0)
     self.stateMachine:update(dt)
 
     if self.currentAnimation then
@@ -127,9 +129,9 @@ function Entity:render(adjacentOffsetX, adjacentOffsetY)
     end
 
     self.x, self.y = self.x + (adjacentOffsetX or 0), self.y + (adjacentOffsetY or 0)
-    if self.agro then
-        love.graphics.setColor(1, 0.3, 0.3, 1)
-    end
+    --if self.agro then
+        --love.graphics.setColor(1, 0.3, 0.3, 1)
+    --end
     self.stateMachine:render()
     love.graphics.setColor(1, 1, 1, 1)
     -- Draw health bar
@@ -142,9 +144,9 @@ function Entity:render(adjacentOffsetX, adjacentOffsetY)
     else 
         love.graphics.setColor(255, 165, 0, 255)
     end
-    love.graphics.rectangle('fill', self.x - 1, self.y + self.height + 2, width, 3)
+    love.graphics.rectangle('fill', math.floor(self.x - 1), math.floor(self.y + self.height + 2), width, 3)
     love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.rectangle('line', self.x - 2, self.y + self.height + 1, 17, 4)
+    love.graphics.rectangle('line', math.floor(self.x - 2), math.floor(self.y + self.height + 1), 17, 4)
     love.graphics.setColor(1, 1, 1, 1)
     self.x, self.y = self.x - (adjacentOffsetX or 0), self.y - (adjacentOffsetY or 0)
 end

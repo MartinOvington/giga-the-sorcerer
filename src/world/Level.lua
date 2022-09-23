@@ -19,6 +19,7 @@ function Level:init(player)
     self.player = player
 
     -- entities in the level
+    self.numEntitiesLeft = NUM_ENTITIES
     self.entities = {}
     self:generateEntities()
 
@@ -35,17 +36,19 @@ function Level:init(player)
 
     self.adjacentOffsetX = 0
     self.adjacentOffsetY = 0
+    self.keySpawned = false
+    self.timer = 0
 end
 
 --[[
     Randomly creates an assortment of enemies for the player to fight.
 ]]
 function Level:generateEntities()
-    local types = {'skeleton', 'slime', 'bat', 'ghost', 'spider'}
-    for i = 1, 30 do
+    local types = {'small-green-slime', 'small-green-slime', 'medium-green-slime'}
+    for i = 1, NUM_ENTITIES do
         local type = types[math.random(#types)]
-
         table.insert(self.entities, Entity {
+            texture = ENTITY_DEFS[type].texture,
             animations = ENTITY_DEFS[type].animations,
             walkSpeed = ENTITY_DEFS[type].walkSpeed or 20,
 
@@ -85,7 +88,8 @@ function Level:generateObjects()
         local x = MAP_RENDER_OFFSET_X + TILE_SIZE * math.random(1, self.height -2)
         local y = MAP_RENDER_OFFSET_Y + TILE_SIZE * math.random(1, self.width -2)
         for j = 1, i do
-            if x == filledX[j] and y == filledY[j] then
+            if x == filledX[j] and y == filledY[j] or 
+                math.abs(x - self.player.x) <= TILE_SIZE and math.abs(x - self.player.x) <= TILE_SIZE then
                 goto start
             end
         end
@@ -142,7 +146,7 @@ function Level:generateWallsAndFloors()
 end
 
 function Level:update(dt)
-    
+    self.timer = self.timer + dt
     -- don't update anything if we are sliding to another level (we have offsets)
     if self.adjacentOffsetX ~= 0 or self.adjacentOffsetY ~= 0 then return end
 
@@ -153,17 +157,51 @@ function Level:update(dt)
 
         -- remove entity from the table if health is <= 0
         if entity.health <= 0 then
-            if entity.dead == false and math.random(3) == 1 then
-                local heartDrop = GameObject(GAME_OBJECT_DEFS['heart'], 
-                    entity.x, entity.y)
-                heartDrop.onCollide = function()
-                    if heartDrop.state ~= 'picked' then
-                        self.player:heal()
-                        heartDrop.state = 'picked'
-                        gSounds['heart']:play()
+            if entity.dead == false then
+                self.numEntitiesLeft = self.numEntitiesLeft - 1
+                local potion
+                if self.numEntitiesLeft <= 4 and not self.keySpawned then
+                    self.keySpawned = true
+                    potion = GameObject(GAME_OBJECT_DEFS['key'], 
+                    math.floor(entity.x), math.floor(entity.y))
+                    potion.onCollide = function()
+                        gStateMachine:change('win')
+                    end
+                elseif math.random(3) == 1 then
+                    local potionNum = math.random(3)
+                    if potionNum == 1 then 
+                        potion = GameObject(GAME_OBJECT_DEFS['hp'], 
+                        math.floor(entity.x), math.floor(entity.y))
+                        potion.onCollide = function()
+                            if potion.state ~= 'picked' then
+                                self.player:heal()
+                                potion.state = 'picked'
+                                gSounds['potion']:play()
+                            end
+                        end
+                    elseif potionNum == 2 then
+                        potion = GameObject(GAME_OBJECT_DEFS['atk'], 
+                        math.floor(entity.x), math.floor(entity.y))
+                        potion.onCollide = function()
+                            if potion.state ~= 'picked' then
+                                self.player:incDmg()
+                                potion.state = 'picked'
+                                gSounds['potion']:play()
+                            end
+                        end
+                    else
+                        potion = GameObject(GAME_OBJECT_DEFS['spd'], 
+                        math.floor(entity.x), math.floor(entity.y))
+                        potion.onCollide = function()
+                            if potion.state ~= 'picked' then
+                                self.player:incSpd()
+                                potion.state = 'picked'
+                                gSounds['potion']:play()
+                            end
+                        end
                     end
                 end
-                table.insert(self.objects, heartDrop)
+                table.insert(self.objects, potion)
             end
             entity.dead = true
         elseif not entity.dead then
@@ -186,7 +224,7 @@ function Level:update(dt)
             projectile:update(dt)
             if not projectile.destroyed and not entity.dead and entity:collides(projectile) then
                 projectile.destroyed = true
-                entity:damage(0.5)
+                entity:damage(projectile.dmg)
                 gSounds['hit-enemy']:play()
             end
         end
@@ -213,7 +251,7 @@ function Level:render()
     end
 
     for k, object in pairs(self.objects) do
-        if object.type ~= 'heart' or object.state ~= 'picked' then object:render(self.adjacentOffsetX, self.adjacentOffsetY) end
+        if object.type ~= 'hp' or object.state ~= 'picked' then object:render(self.adjacentOffsetX, self.adjacentOffsetY) end
     end
 
     for k, projectile in pairs(self.projectiles) do

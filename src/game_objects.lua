@@ -21,9 +21,9 @@ GAME_OBJECT_DEFS = {
             }
         }
     },
-    ['heart'] = {
-        type = 'heart',
-        texture = 'hearts',
+    ['hp'] = {
+        type = 'hp',
+        texture = 'drops',
         frame = 5,
         width = 16,
         height = 16,
@@ -31,10 +31,61 @@ GAME_OBJECT_DEFS = {
         defaultState = 'unpicked',
         states = {
             ['unpicked'] = {
-                frame = 5
+                frame = 1
             },
             ['picked'] = {
-                frame = 1
+                frame = 5
+            }
+        }
+    },
+    ['spd'] = {
+        type = 'spd',
+        texture = 'drops',
+        frame = 5,
+        width = 16,
+        height = 16,
+        solid = false,
+        defaultState = 'unpicked',
+        states = {
+            ['unpicked'] = {
+                frame = 2
+            },
+            ['picked'] = {
+                frame = 5
+            }
+        }
+    },
+    ['atk'] = {
+        type = 'atk',
+        texture = 'drops',
+        frame = 5,
+        width = 16,
+        height = 16,
+        solid = false,
+        defaultState = 'unpicked',
+        states = {
+            ['unpicked'] = {
+                frame = 3
+            },
+            ['picked'] = {
+                frame = 5
+            }
+        }
+    },
+    ['key'] = {
+        type = 'key',
+        texture = 'drops',
+        frame = 5,
+        width = 16,
+        height = 16,
+        solid = false,
+        defaultState = 'unpicked',
+        states = {
+            ['unpicked'] = {
+                frame = 4
+            },
+            ['picked'] = {
+                frame = 5
             }
         }
     },

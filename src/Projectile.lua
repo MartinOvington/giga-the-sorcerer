@@ -8,7 +8,7 @@
 
 Projectile = Class{}
 
-function Projectile:init(def, dx, dy)
+function Projectile:init(def, dx, dy, dmg)
     -- string identifying this object type
     self.type = def.type
 
@@ -31,6 +31,7 @@ function Projectile:init(def, dx, dy)
     self.y = def.y
     self.distTravelled = 0
     self.destroyed = false
+    self.dmg = dmg or 0.5
 
     -- default empty collision callback
     self.onCollide = function() end

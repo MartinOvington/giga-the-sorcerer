@@ -10,9 +10,48 @@ Player = Class{__includes = Entity}
 
 function Player:init(def)
     Entity.init(self, def)
-    self.wand = Wand(1)
+    self.level = 1
+    self.wand = Wand()
     self.wand:init()
+    self.dmg = def.dmg or 0.5
     self.shot_cooldown = 0
+end
+
+function Player:faceMouse()
+    local midX = VIRTUAL_WIDTH / 2
+    local midY = VIRTUAL_HEIGHT / 2
+    local direction = 'left'
+    -- find quadrant then compare mouse x and y
+    if self.wand.x < midX and self.wand.y < midY then
+        -- top-left quadrant
+        if (midX - self.wand.x) > (midY - self.wand.y) then
+            self.direction = 'left'
+        else
+            self.direction = 'up'
+        end
+    elseif self.wand.x >= midX and self.wand.y < midY then
+    -- top-right quadrant
+        if (self.wand.x - midX) > (midY - self.wand.y) then
+            self.direction = 'right'
+        else
+            self.direction = 'up'
+        end
+    elseif self.wand.x > midX and self.wand.y >= midY then
+    -- bottom-right quadrant
+        if (self.wand.x - midX) > (self.wand.y - midY) then
+            self.direction = 'right'
+        else
+            self.direction = 'down'
+        end
+    else
+        -- bottom-left quadrant
+        if (midX - self.wand.x) > (self.wand.y - midY) then
+            self.direction = 'left'
+        else
+            self.direction = 'down'
+        end
+    end
+    self:changeAnimation('idle-' .. self.direction)
 end
 
 function Player:update(dt)
@@ -29,6 +68,14 @@ end
 
 function Player:heal()
     self.health = math.min(6, self.health + 2)
+end
+
+function Player:incDmg()
+    self.dmg = self.dmg + POT_DMG_INCREASE
+end
+
+function Player:incSpd()
+    self.walkSpeed = self.walkSpeed + POT_SPD_INCREASE
 end
 
 function Player:render()
