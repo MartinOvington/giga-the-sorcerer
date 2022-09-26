@@ -7,9 +7,23 @@
 ]]
 
 GAME_OBJECT_DEFS = {
+    ['bush'] = {
+        type = 'obstacle',
+        texture = 'grass-tiles',
+        frame = 2,
+        width = 12,
+        height = 12,
+        solid = true,
+        defaultState = 'bush',
+        states = {
+            ['bush'] = {
+                frame = 4
+            }
+        }
+    },
     ['rock'] = {
-        type = 'rock',
-        texture = 'tiles',
+        type = 'obstacle',
+        texture = 'desert-tiles',
         frame = 2,
         width = 12,
         height = 12,
@@ -17,6 +31,20 @@ GAME_OBJECT_DEFS = {
         defaultState = 'rock',
         states = {
             ['rock'] = {
+                frame = 4
+            }
+        }
+    },
+    ['gravestone'] = {
+        type = 'obstacle',
+        texture = 'castle-tiles',
+        frame = 2,
+        width = 12,
+        height = 12,
+        solid = true,
+        defaultState = 'gravestone',
+        states = {
+            ['gravestone'] = {
                 frame = 4
             }
         }

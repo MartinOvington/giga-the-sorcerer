@@ -10,7 +10,7 @@ require 'src/Dependencies'
 
 function love.load()
     math.randomseed(os.time())
-    love.window.setTitle('Wrath of Giga')
+    love.window.setTitle('Giga the Sorcerer')
     love.graphics.setDefaultFilter('nearest', 'nearest')
     cursor = love.mouse.newCursor("graphics/reticle.png", 16, 16)
     love.mouse.setCursor(cursor)
@@ -26,6 +26,7 @@ function love.load()
         ['start'] = function() return StartState() end,
         ['play'] = function() return PlayState() end,
         ['game-over'] = function() return GameOverState() end,
+        ['next-level'] = function() return NextLevelState() end,
         ['win'] = function() return WinState() end
     }
     gStateMachine:change('start')

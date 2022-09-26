@@ -35,7 +35,7 @@ function PlayerShootWalkState:update(dt)
             gSounds['player-shoot']:play()
             table.insert(self.level.projectiles,
                 Projectile(GameObject(GAME_OBJECT_DEFS['shot'], self.entity.x, self.entity.y), dx, dy, self.entity.dmg))
-            self.entity:faceMouse()
+            self.entity:faceMouse('walk-')
         end
         if love.keyboard.isDown('a') then
             self.entity.direction = 'left'

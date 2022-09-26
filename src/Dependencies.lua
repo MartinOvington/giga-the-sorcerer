@@ -38,12 +38,21 @@ require 'src/states/game/GameOverState'
 require 'src/states/game/PlayState'
 require 'src/states/game/StartState'
 require 'src/states/game/WinState'
+require 'src/states/game/NextLevelState'
 
 gTextures = {
-    ['tiles'] = love.graphics.newImage('graphics/tiles.png'),
+    ['grass-tiles'] = love.graphics.newImage('graphics/grass-tiles.png'),
+    ['desert-tiles'] = love.graphics.newImage('graphics/desert-tiles.png'),
+    ['castle-tiles'] = love.graphics.newImage('graphics/castle-tiles.png'),
     ['small-green-slime'] = love.graphics.newImage('graphics/Slime_Small_Green.png'),
     ['medium-green-slime'] = love.graphics.newImage('graphics/Slime_Medium_Green.png'),
-    ['background'] = love.graphics.newImage('graphics/background.png'),
+    ['small-blue-slime'] = love.graphics.newImage('graphics/Slime_Small_Blue.png'),
+    ['medium-blue-slime'] = love.graphics.newImage('graphics/Slime_Medium_Blue.png'),
+    ['small-red-slime'] = love.graphics.newImage('graphics/Slime_Small_Red.png'),
+    ['medium-red-slime'] = love.graphics.newImage('graphics/Slime_Medium_Red.png'),
+    ['background-grass'] = love.graphics.newImage('graphics/background-grass.png'),
+    ['background-desert'] = love.graphics.newImage('graphics/background-desert.png'),
+    ['background-castle'] = love.graphics.newImage('graphics/background-castle.png'),
     ['menu-background'] = love.graphics.newImage('graphics/menu-background.jpg'),
     ['drops'] = love.graphics.newImage('graphics/drops.png'),
     ['entities'] = love.graphics.newImage('graphics/entities.png'),
@@ -51,9 +60,15 @@ gTextures = {
 }
 
 gFrames = {
-    ['tiles'] = GenerateQuads(gTextures['tiles'], 16, 16),
+    ['grass-tiles'] = GenerateQuads(gTextures['grass-tiles'], 16, 16),
+    ['desert-tiles'] = GenerateQuads(gTextures['desert-tiles'], 16, 16),
+    ['castle-tiles'] = GenerateQuads(gTextures['castle-tiles'], 16, 16),
     ['small-green-slime'] = GenerateQuads(gTextures['small-green-slime'], 16, 16),
     ['medium-green-slime'] = GenerateQuads(gTextures['medium-green-slime'], 16, 16),
+    ['small-blue-slime'] = GenerateQuads(gTextures['small-blue-slime'], 16, 16),
+    ['medium-blue-slime'] = GenerateQuads(gTextures['medium-blue-slime'], 16, 16),
+    ['small-red-slime'] = GenerateQuads(gTextures['small-red-slime'], 16, 16),
+    ['medium-red-slime'] = GenerateQuads(gTextures['medium-red-slime'], 16, 16),
     ['entities'] = GenerateQuads(gTextures['entities'], 16, 16),
     ['drops'] = GenerateQuads(gTextures['drops'], 16, 16),
     ['projectile'] = GenerateQuads(gTextures['projectile'], 16, 16)

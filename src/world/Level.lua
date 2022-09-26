@@ -37,14 +37,26 @@ function Level:init(player)
     self.adjacentOffsetX = 0
     self.adjacentOffsetY = 0
     self.keySpawned = false
-    self.timer = 0
+    self.tileTexture = 'grass-tiles'
+    if player.levelNum == 2 then
+        self.tileTexture = 'desert-tiles'
+    elseif player.levelNum == 3 then
+        self.tileTexture = 'castle-tiles'
+    end
 end
 
 --[[
     Randomly creates an assortment of enemies for the player to fight.
 ]]
 function Level:generateEntities()
-    local types = {'small-green-slime', 'small-green-slime', 'medium-green-slime'}
+    local types = {}
+    if self.player.levelNum == 1 then
+        types = {'small-green-slime', 'small-green-slime', 'medium-green-slime'}
+    elseif self.player.levelNum == 2 then
+        types = {'small-blue-slime', 'small-blue-slime', 'medium-blue-slime'}
+    else
+        types = {'small-red-slime', 'small-red-slime', 'medium-red-slime'}
+    end
     for i = 1, NUM_ENTITIES do
         local type = types[math.random(#types)]
         table.insert(self.entities, Entity {
@@ -61,7 +73,7 @@ function Level:generateEntities()
             width = 16,
             height = 16,
 
-            health = 1,
+            health = ENTITY_DEFS[type].health or 1,
             player = self.player
         })
 
@@ -81,9 +93,15 @@ end
 function Level:generateObjects()
     local filledX = {}
     local filledY = {}
-
-
-    for i = 1, NUMBER_OF_ROCKS do
+    local type = ''
+    if self.player.levelNum == 1 then
+        type = 'bush'
+    elseif self.player.levelNum == 2 then
+        type = 'rock'
+    else
+        type = 'gravestone'
+    end
+    for i = 1, NUMBER_OF_OBSTACLES do
         ::start::
         local x = MAP_RENDER_OFFSET_X + TILE_SIZE * math.random(1, self.height -2)
         local y = MAP_RENDER_OFFSET_Y + TILE_SIZE * math.random(1, self.width -2)
@@ -95,13 +113,13 @@ function Level:generateObjects()
         end
         filledX[i + 1] = x
         filledY[i + 1] = y
-        local rock = GameObject(
-            GAME_OBJECT_DEFS['rock'], x, y   
+        local obstacle = GameObject(
+            GAME_OBJECT_DEFS[type], x, y   
         )
-        rock.onCollide = function()
+        obstacle.onCollide = function()
             self.player.bumped = true
         end
-        table.insert(self.objects, rock)
+        table.insert(self.objects, obstacle)
     end
 end
 
@@ -135,7 +153,15 @@ function Level:generateWallsAndFloors()
             elseif y == self.height then
                 id = TILE_BOTTOM_WALLS[math.random(#TILE_BOTTOM_WALLS)]
             else
-                id = TILE_FLOORS[math.random(#TILE_FLOORS)]
+                local tmp = math.random(5)
+                if tmp < 4 then
+                    tmp = 1
+                elseif tmp == 4 then
+                    tmp = 2
+                else 
+                    tmp = 3
+                end
+                id = TILE_FLOORS[tmp]
             end
             
             table.insert(self.tiles[y], {
@@ -146,7 +172,6 @@ function Level:generateWallsAndFloors()
 end
 
 function Level:update(dt)
-    self.timer = self.timer + dt
     -- don't update anything if we are sliding to another level (we have offsets)
     if self.adjacentOffsetX ~= 0 or self.adjacentOffsetY ~= 0 then return end
 
@@ -165,7 +190,7 @@ function Level:update(dt)
                     potion = GameObject(GAME_OBJECT_DEFS['key'], 
                     math.floor(entity.x), math.floor(entity.y))
                     potion.onCollide = function()
-                        gStateMachine:change('win')
+                        gStateMachine:change('next-level', {player = self.player})
                     end
                 elseif math.random(3) == 1 then
                     local potionNum = math.random(3)
@@ -219,9 +244,12 @@ function Level:update(dt)
                 gStateMachine:change('game-over')
             end
         end
+    end
 
-        for k, projectile in pairs(self.projectiles) do
-            projectile:update(dt)
+    for k, projectile in pairs(self.projectiles) do
+        projectile:update(dt)
+        for i = #self.entities, 1, -1 do
+            local entity = self.entities[i]
             if not projectile.destroyed and not entity.dead and entity:collides(projectile) then
                 projectile.destroyed = true
                 entity:damage(projectile.dmg)
@@ -244,7 +272,7 @@ function Level:render()
     for y = 1, self.height do
         for x = 1, self.width do
             local tile = self.tiles[y][x]
-            love.graphics.draw(gTextures['tiles'], gFrames['tiles'][tile.id],
+            love.graphics.draw(gTextures[self.tileTexture], gFrames[self.tileTexture][tile.id],
                 (x - 1) * TILE_SIZE + self.renderOffsetX + self.adjacentOffsetX, 
                 (y - 1) * TILE_SIZE + self.renderOffsetY + self.adjacentOffsetY)
         end

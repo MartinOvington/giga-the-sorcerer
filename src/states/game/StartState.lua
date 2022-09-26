@@ -14,7 +14,22 @@ function StartState:update(dt)
     end
 
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
-        gStateMachine:change('play')
+        gStateMachine:change('play', { player = Player {
+            animations = ENTITY_DEFS['player'].animations,
+            walkSpeed = ENTITY_DEFS['player'].walkSpeed,
+            
+            x = VIRTUAL_WIDTH / 2 - 8,
+            y = VIRTUAL_HEIGHT / 2 - 11,
+            
+            width = 12,
+            height = 16,
+    
+            health = 6,
+
+            offsetY = 6,
+
+            levelNum = 1
+        }})
     end
 end
 

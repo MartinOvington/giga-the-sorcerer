@@ -63,7 +63,7 @@ function EntityWalkState:update(dt)
 
     if self.level then
         for k, object in pairs(self.level.objects) do
-            if object.type == 'rock' and self.entity:collides(object) then
+            if object.type == 'obstacle' and self.entity:collides(object) then
                 if self.entity.direction == 'left' then
                     self.entity.x = self.entity.x + self.entity.walkSpeed * dt
                 elseif self.entity.direction == 'right' then

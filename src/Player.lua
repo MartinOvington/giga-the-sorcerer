@@ -10,14 +10,14 @@ Player = Class{__includes = Entity}
 
 function Player:init(def)
     Entity.init(self, def)
-    self.level = 1
     self.wand = Wand()
     self.wand:init()
     self.dmg = def.dmg or 0.5
     self.shot_cooldown = 0
+    self.levelNum = def.levelNum
 end
 
-function Player:faceMouse()
+function Player:faceMouse(animType)
     local midX = VIRTUAL_WIDTH / 2
     local midY = VIRTUAL_HEIGHT / 2
     local direction = 'left'
@@ -51,7 +51,7 @@ function Player:faceMouse()
             self.direction = 'down'
         end
     end
-    self:changeAnimation('idle-' .. self.direction)
+    self:changeAnimation(animType .. self.direction)
 end
 
 function Player:update(dt)

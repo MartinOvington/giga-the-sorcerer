@@ -20,7 +20,7 @@ function PlayerShootIdleState:enter(player, level)
     self.entity.offsetY = 0
     self.entity.offsetX = 1
     self.shot_cooldown = 0
-    self.entity:faceMouse()
+    self.entity:faceMouse('idle-')
 end
 
 function PlayerShootIdleState:update(dt)
@@ -39,7 +39,7 @@ function PlayerShootIdleState:update(dt)
         gSounds['player-shoot']:play()
         table.insert(self.level.projectiles,
             Projectile(GameObject(GAME_OBJECT_DEFS['shot'], self.entity.x, self.entity.y), dx, dy, self.entity.dmg))
-        self.entity:faceMouse()
+        self.entity:faceMouse('idle-')
     end
 
     if not love.mouse.wasPressed(1) and not love.mouse.isDown(1) then

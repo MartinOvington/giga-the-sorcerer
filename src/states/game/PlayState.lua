@@ -8,29 +8,22 @@
 
 PlayState = Class{__includes = BaseState}
 
-function PlayState:init()
-    self.player = Player {
-        animations = ENTITY_DEFS['player'].animations,
-        walkSpeed = ENTITY_DEFS['player'].walkSpeed,
-        
-        x = VIRTUAL_WIDTH / 2 - 8,
-        y = VIRTUAL_HEIGHT / 2 - 11,
-        
-        width = 12,
-        height = 16,
-
-        -- one heart == 2 health
-        health = 6,
-
-        -- rendering and collision offset for spaced sprites
-        offsetY = 6,
-    }
+function PlayState:enter(params)
+    self.player = params.player
     self.camX = 0
     self.camY = 0
     self.lastPlayerX = self.player.x
     self.lastPlayerY = self.player.y
     self.level = Level(self.player)
+    self.background = ''
     
+    if self.player.levelNum == 1 then
+        self.background = 'background-grass'
+    elseif self.player.levelNum == 2 then
+        self.background = 'background-desert'
+    else
+        self.background = 'background-castle'
+    end
     self.player.stateMachine = StateMachine {
         ['walk'] = function() return PlayerWalkState(self.player, self.level) end,
         ['idle'] = function() return PlayerIdleState(self.player) end,
@@ -58,10 +51,15 @@ function PlayState:updateCamera()
 end
 
 function PlayState:render()
+    if self.player.levelNum == 2 then
+        self.background = 'background-desert'
+    elseif self.player.levelNum == 3 then
+        self.background = 'background-castle'
+    end
     -- render level and all entities separate from hearts GUI
-    love.graphics.draw(gTextures['background'], 0, 0, 0, 
-    VIRTUAL_WIDTH / gTextures['background']:getWidth(),
-    VIRTUAL_HEIGHT / gTextures['background']:getHeight())
+    love.graphics.draw(gTextures[self.background], 0, 0, 0, 
+    VIRTUAL_WIDTH / gTextures[self.background]:getWidth(),
+    VIRTUAL_HEIGHT / gTextures[self.background]:getHeight())
     love.graphics.push()
     love.graphics.translate(-math.floor(self.camX), -math.floor(self.camY))
     self.level:render()

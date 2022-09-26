@@ -41,7 +41,6 @@ function Projectile:update(dt)
     if self.distTravelled >= TILE_SIZE * PROJECTILE_TRAVEL_DIST then
         self.destroyed = true
     end
-    
     self.x = self.x + self.dx * dt * PROJECTILE_SPEED
     self.y = self.y + self.dy * dt * PROJECTILE_SPEED
 
