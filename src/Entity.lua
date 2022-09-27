@@ -42,6 +42,7 @@ function Entity:init(def)
     self.agroTimer = AGRO_START_GRACE
     self.agro = false
     self.player = def.player
+    self.slimeSize = def.slimeSize
 end
 
 function Entity:checkSetAgro()
@@ -144,9 +145,12 @@ function Entity:render(adjacentOffsetX, adjacentOffsetY)
     else 
         love.graphics.setColor(255, 165, 0, 255)
     end
-    love.graphics.rectangle('fill', math.floor(self.x - 1), math.floor(self.y + self.height + 2), width, 3)
-    love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.rectangle('line', math.floor(self.x - 2), math.floor(self.y + self.height + 1), 17, 4)
+    if self.health >= 0 then
+        love.graphics.rectangle('fill', math.floor(self.x - 1), math.floor(self.y + self.height + 2), width, 3)
+        love.graphics.setColor(0, 0, 0, 1)
+        love.graphics.rectangle('line', math.floor(self.x - 2), math.floor(self.y + self.height + 1), 17, 4)
+    end
     love.graphics.setColor(1, 1, 1, 1)
+    
     self.x, self.y = self.x - (adjacentOffsetX or 0), self.y - (adjacentOffsetY or 0)
 end

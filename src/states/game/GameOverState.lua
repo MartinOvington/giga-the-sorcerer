@@ -25,10 +25,10 @@ function GameOverState:render()
 
     love.graphics.setFont(gFonts['freedom'])
     love.graphics.setColor(175/255, 53/255, 42/255, 1)
-    love.graphics.printf('You Won', 2, VIRTUAL_HEIGHT / 2 - 62, VIRTUAL_WIDTH, 'center')
+    love.graphics.printf('Game Over', 2, VIRTUAL_HEIGHT / 2 - 62, VIRTUAL_WIDTH, 'center')
 
     love.graphics.setColor(255, 255, 0, 1)
-    love.graphics.printf('You Won', 0, VIRTUAL_HEIGHT / 2 - 64, VIRTUAL_WIDTH, 'center')
+    love.graphics.printf('Game Over', 0, VIRTUAL_HEIGHT / 2 - 64, VIRTUAL_WIDTH, 'center')
 
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.setFont(gFonts['freedom-small'])

@@ -50,6 +50,8 @@ ENTITY_DEFS = {
     },
     ['small-green-slime'] = {
         texture = 'small-green-slime',
+        slimeSize = 'small',
+        walkSpeed = 20,
         health = 1,
         animations = {
             ['walk-left'] = {
@@ -92,6 +94,8 @@ ENTITY_DEFS = {
     },
     ['medium-green-slime'] = {
         texture = 'medium-green-slime',
+        slimeSize = 'medium',
+        walkSpeed = 20,
         health = 1.2,
         animations = {
             ['walk-left'] = {
@@ -135,6 +139,8 @@ ENTITY_DEFS = {
     ['small-blue-slime'] = {
         health = 1.3,
         texture = 'small-blue-slime',
+        walkSpeed = 25,
+        slimeSize = 'small',
         animations = {
             ['walk-left'] = {
                 frames = {7, 8},
@@ -176,6 +182,8 @@ ENTITY_DEFS = {
     },
     ['medium-blue-slime'] = {
         texture = 'medium-blue-slime',
+        slimeSize = 'medium',
+        walkSpeed = 25,
         health = 1.5,
         animations = {
             ['walk-left'] = {
@@ -218,6 +226,8 @@ ENTITY_DEFS = {
     },
     ['small-red-slime'] = {
         texture = 'small-red-slime',
+        slimeSize = 'small',
+        walkSpeed = 30,
         health = 1.7,
         animations = {
             ['walk-left'] = {
@@ -260,6 +270,8 @@ ENTITY_DEFS = {
     },
     ['medium-red-slime'] = {
         texture = 'medium-red-slime',
+        slimeSize = 'medium',
+        walkSpeed = 30,
         health = 1.8,
         animations = {
             ['walk-left'] = {

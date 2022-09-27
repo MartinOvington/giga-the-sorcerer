@@ -1,13 +1,3 @@
---[[
-    GD50
-    Legend of Zelda
-
-    -- constants --
-
-    Author: Colton Ogden
-    cogden@cs50.harvard.edu
-]]
-
 VIRTUAL_WIDTH = 450
 VIRTUAL_HEIGHT = 250
 
@@ -31,18 +21,19 @@ PROJECTILE_SPEED = 150
 PROJECTILE_TRAVEL_DIST = 10
 SHOT_COOLDOWN = 0.5
 
+--
 -- potion constants
+--
 POT_DMG_INCREASE = 0.1
-POT_SPD_INCREASE = 5
+POT_SPD_INCREASE = 4
 
 --
 -- map constants
 --
---MAP_WIDTH = VIRTUAL_WIDTH / TILE_SIZE - 2
--- MAP_HEIGHT = math.floor(VIRTUAL_HEIGHT / TILE_SIZE) - 2
 MAP_WIDTH = 60
 MAP_HEIGHT = 60
 NUM_ENTITIES = 30
+WIN_CONDITION = 25
 
 MAP_RENDER_OFFSET_X = (VIRTUAL_WIDTH - (MAP_WIDTH * TILE_SIZE)) / 2
 MAP_RENDER_OFFSET_Y = (VIRTUAL_HEIGHT - (MAP_HEIGHT * TILE_SIZE)) / 2

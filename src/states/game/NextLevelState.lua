@@ -21,7 +21,7 @@ function NextLevelState:update(dt)
 
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
         if self.player.levelNum == 3 then
-            gStateMachine:change('win')
+            gStateMachine:change('win', {player = self.player})
         else
             self.player.levelNum = self.player.levelNum + 1
             gStateMachine:change('play', {player = self.player})

@@ -7,6 +7,57 @@
 ]]
 
 GAME_OBJECT_DEFS = {
+    ['grass-chest'] = {
+        type = 'obstacle',
+        texture = 'grass-tiles',
+        frame = 5,
+        width = 12,
+        height = 12,
+        solid = true,
+        defaultState = 'closed',
+        states = {
+            ['closed'] = {
+                frame = 5
+            },
+            ['open'] = {
+                frame = 6
+            }
+        }
+    },
+    ['desert-chest'] = {
+        type = 'obstacle',
+        texture = 'desert-tiles',
+        frame = 5,
+        width = 12,
+        height = 12,
+        solid = true,
+        defaultState = 'closed',
+        states = {
+            ['closed'] = {
+                frame = 5
+            },
+            ['open'] = {
+                frame = 6
+            }
+        }
+    },
+    ['castle-chest'] = {
+        type = 'obstacle',
+        texture = 'castle-tiles',
+        frame = 5,
+        width = 12,
+        height = 12,
+        solid = true,
+        defaultState = 'closed',
+        states = {
+            ['closed'] = {
+                frame = 5
+            },
+            ['open'] = {
+                frame = 6
+            }
+        }
+    },
     ['bush'] = {
         type = 'obstacle',
         texture = 'grass-tiles',

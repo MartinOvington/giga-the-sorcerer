@@ -13,8 +13,11 @@ function Player:init(def)
     self.wand = Wand()
     self.wand:init()
     self.dmg = def.dmg or 0.5
+    self.atkPots = 0
+    self.spdPots = 0
     self.shot_cooldown = 0
     self.levelNum = def.levelNum
+    self.newGameNum = 1
 end
 
 function Player:faceMouse(animType)
@@ -71,10 +74,12 @@ function Player:heal()
 end
 
 function Player:incDmg()
+    self.atkPots = self.atkPots + 1
     self.dmg = self.dmg + POT_DMG_INCREASE
 end
 
 function Player:incSpd()
+    self.spdPots = self.spdPots + 1
     self.walkSpeed = self.walkSpeed + POT_SPD_INCREASE
 end
 

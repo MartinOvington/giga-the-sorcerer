@@ -81,13 +81,17 @@ gFonts = {
     ['gothic-medium'] = love.graphics.newFont('fonts/GothicPixels.ttf', 16),
     ['gothic-large'] = love.graphics.newFont('fonts/GothicPixels.ttf', 32),
     ['freedom'] = love.graphics.newFont('fonts/FutilePro.ttf', 40),
-    ['freedom-small'] = love.graphics.newFont('fonts/FutilePro.ttf', 20)
+    ['freedom-small'] = love.graphics.newFont('fonts/FutilePro.ttf', 16)
 }
 
 gSounds = {
-    ['intro-music'] = love.audio.newSource('sounds/intro-music.ogg', 'static'),
+    ['intro-music'] = love.audio.newSource('sounds/intro-music.mp3', 'static'),
     ['hit-enemy'] = love.audio.newSource('sounds/hit_enemy.wav', 'static'),
     ['hit-player'] = love.audio.newSource('sounds/hit_player.wav', 'static'),
     ['potion'] = love.audio.newSource('sounds/potion.wav', 'static'),
     ['player-shoot'] = love.audio.newSource('sounds/player_shoot.wav', 'static'),
+    ['slime-split'] = love.audio.newSource('sounds/slime_split.wav', 'static')
 }
+
+gSounds['hit-enemy']:setVolume(0.4)
+gSounds['intro-music']:setVolume(0.3)

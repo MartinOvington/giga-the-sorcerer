@@ -67,5 +67,11 @@ function PlayState:render()
 
     love.graphics.setFont(gFonts['freedom-small'])
     love.graphics.setColor(1, 1, 1, 1)
-    love.graphics.printf('Enemies: ' .. tostring(self.level.numEntitiesLeft), 2, 10, VIRTUAL_WIDTH - 10, 'right')
+    love.graphics.printf('Slimes: ' .. tostring(math.min(self.level.numEntitiesKilled, WIN_CONDITION)) 
+        .. '/ ' ..tostring(WIN_CONDITION), 2, 10, VIRTUAL_WIDTH - 10, 'right')
+    love.graphics.printf('ATK: ' .. tostring(self.player.atkPots), 2, VIRTUAL_HEIGHT - 35, VIRTUAL_WIDTH - 10, 'right')
+    love.graphics.printf('SPD: ' .. tostring(self.player.spdPots), 2, VIRTUAL_HEIGHT - 20, VIRTUAL_WIDTH - 10, 'right')
+    if self.player.newGameNum >= 2 then
+        love.graphics.printf('NG+' .. tostring(self.player.newGameNum - 1), 2, 10, VIRTUAL_WIDTH - 10, 'left')
+    end
 end
