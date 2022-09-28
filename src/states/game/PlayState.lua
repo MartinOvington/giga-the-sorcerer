@@ -26,7 +26,7 @@ function PlayState:enter(params)
     end
     self.player.stateMachine = StateMachine {
         ['walk'] = function() return PlayerWalkState(self.player, self.level) end,
-        ['idle'] = function() return PlayerIdleState(self.player) end,
+        ['idle'] = function() return PlayerIdleState(self.player, self.level) end,
         ['shoot-idle'] = function() return PlayerShootIdleState(self.player, self.level) end,
         ['shoot-walk'] = function() return PlayerShootWalkState(self.player, self.level) end
     }
@@ -71,6 +71,7 @@ function PlayState:render()
         .. '/ ' ..tostring(WIN_CONDITION), 2, 10, VIRTUAL_WIDTH - 10, 'right')
     love.graphics.printf('ATK: ' .. tostring(self.player.atkPots), 2, VIRTUAL_HEIGHT - 35, VIRTUAL_WIDTH - 10, 'right')
     love.graphics.printf('SPD: ' .. tostring(self.player.spdPots), 2, VIRTUAL_HEIGHT - 20, VIRTUAL_WIDTH - 10, 'right')
+    love.graphics.printf('Scrolls: ' .. tostring(self.player.scrolls), 2, VIRTUAL_HEIGHT - 20, VIRTUAL_WIDTH - 10, 'left')
     if self.player.newGameNum >= 2 then
         love.graphics.printf('NG+' .. tostring(self.player.newGameNum - 1), 2, 10, VIRTUAL_WIDTH - 10, 'left')
     end

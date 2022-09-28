@@ -36,7 +36,7 @@ function Level:init(player)
         self.chestType = 'desert-chest'
     elseif player.levelNum == 3 then
         self.tileTexture = 'castle-tiles'
-        self.objectType = 'graveStone'
+        self.objectType = 'gravestone'
         self.chestType = 'castle-chest'
     end
 
@@ -131,8 +131,8 @@ function Level:generateObjects()
         end
         self.filledX[i + 1] = x
         self.filledY[i + 1] = y
-        local obstacle = nil
-        if math.random(20) < 20 then
+        local obstacle
+        if math.random(CHEST_FREQUENCY) < CHEST_FREQUENCY then
             obstacle = GameObject(
                 GAME_OBJECT_DEFS[self.objectType], x, y   
             )
@@ -200,6 +200,7 @@ function Level:generateWallsAndFloors()
 end
 
 function Level:createDrop(entity)
+    local potion
     if self.numEntitiesKilled >= WIN_CONDITION and not self.keySpawned then
         self.keySpawned = true
         potion = GameObject(GAME_OBJECT_DEFS['key'], 
@@ -323,7 +324,6 @@ function Level:update(dt)
     for k, object in pairs(self.objects) do
         object:update(dt)
 
-        -- trigger collision callback on object
         if self.player:collides(object) then
             object:onCollide()
         end

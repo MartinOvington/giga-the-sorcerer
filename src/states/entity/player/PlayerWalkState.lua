@@ -18,6 +18,12 @@ function PlayerWalkState:init(player, level)
 end
 
 function PlayerWalkState:update(dt)
+    if love.keyboard.wasPressed('x') then
+        self.entity:tryOpenChest(self.level)
+    end
+    if love.mouse.wasPressed(2) then
+        self.entity:useScroll(self.level)
+    end
     if (love.mouse.wasPressed(1) or love.mouse.isDown(1)) and 
     (love.keyboard.isDown('w') or love.keyboard.isDown('a') or
     love.keyboard.isDown('s') or love.keyboard.isDown('d')) then

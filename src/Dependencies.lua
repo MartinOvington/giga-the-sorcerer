@@ -90,7 +90,9 @@ gSounds = {
     ['hit-player'] = love.audio.newSource('sounds/hit_player.wav', 'static'),
     ['potion'] = love.audio.newSource('sounds/potion.wav', 'static'),
     ['player-shoot'] = love.audio.newSource('sounds/player_shoot.wav', 'static'),
-    ['slime-split'] = love.audio.newSource('sounds/slime_split.wav', 'static')
+    ['slime-split'] = love.audio.newSource('sounds/slime_split.wav', 'static'),
+    ['open-chest'] = love.audio.newSource('sounds/open_chest.wav', 'static'),
+    ['scroll'] = love.audio.newSource('sounds/scroll.wav', 'static')
 }
 
 gSounds['hit-enemy']:setVolume(0.4)

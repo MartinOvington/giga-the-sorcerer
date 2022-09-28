@@ -15,6 +15,7 @@ function Player:init(def)
     self.dmg = def.dmg or 0.5
     self.atkPots = 0
     self.spdPots = 0
+    self.scrolls = 0
     self.shot_cooldown = 0
     self.levelNum = def.levelNum
     self.newGameNum = 1
@@ -57,6 +58,35 @@ function Player:faceMouse(animType)
     self:changeAnimation(animType .. self.direction)
 end
 
+function Player:tryOpenChest(level)  
+    local openHitbox = Hitbox(self.x - self.width , self.y, self.width * 3, self.height * 1.5)
+    for k, object in pairs(level.objects) do
+        if object.state == 'closed' then
+            if object:collides(openHitbox) then
+                gSounds['open-chest']:play()
+                object.state = 'open'
+                self:incScrolls()
+            end
+        end
+    end
+end
+
+function Player:useScroll(level)
+    if self.scrolls > 0 then
+        self.scrolls = self.scrolls -1
+        gSounds['scroll']:stop()
+        gSounds['scroll']:play()
+        local angle = 0
+        local x, y = push:toGame(love.mouse.getPosition())
+        for i = 1, SCROLL_PROJECTILES, 1 do
+            table.insert(level.projectiles,
+            Projectile(GameObject(GAME_OBJECT_DEFS['shot'], x, y), 
+                math.cos(angle), math.sin(angle), self.dmg))
+            angle = angle + SCROLL_ANGLE_INC
+        end
+    end
+end
+
 function Player:update(dt)
     self.wand:update(dt)
     Entity.update(self, dt)
@@ -81,6 +111,10 @@ end
 function Player:incSpd()
     self.spdPots = self.spdPots + 1
     self.walkSpeed = self.walkSpeed + POT_SPD_INCREASE
+end
+
+function Player:incScrolls()
+    self.scrolls = self.scrolls + 1
 end
 
 function Player:render()

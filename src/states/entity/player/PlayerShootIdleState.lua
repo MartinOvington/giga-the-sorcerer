@@ -24,6 +24,12 @@ function PlayerShootIdleState:enter(player, level)
 end
 
 function PlayerShootIdleState:update(dt)
+    if love.keyboard.wasPressed('x') then
+        self.entity:tryOpenChest(self.level)
+    end
+    if love.mouse.wasPressed(2) then
+        self.entity:useScroll(self.level)
+    end
     if self.entity.shot_cooldown > 0 then
         self.entity.shot_cooldown = self.entity.shot_cooldown - dt
     else

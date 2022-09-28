@@ -19,6 +19,12 @@ function PlayerShootWalkState:init(player, level)
 end
 
 function PlayerShootWalkState:update(dt)
+    if love.keyboard.wasPressed('x') then
+        self.entity:tryOpenChest(self.level)
+    end
+    if love.mouse.wasPressed(2) then
+        self.entity:useScroll(self.level)
+    end
     if love.mouse.wasPressed(1) or love.mouse.isDown(1) then
         if self.entity.shot_cooldown > 0 then
             self.entity.shot_cooldown = self.entity.shot_cooldown - dt
