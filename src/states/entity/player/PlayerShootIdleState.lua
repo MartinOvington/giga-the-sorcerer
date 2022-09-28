@@ -44,7 +44,7 @@ function PlayerShootIdleState:update(dt)
         local dy = (self.entity.wand.y - midY) / vector_mag
         gSounds['player-shoot']:play()
         table.insert(self.level.projectiles,
-            Projectile(GameObject(GAME_OBJECT_DEFS['shot'], self.entity.x, self.entity.y), dx, dy, self.entity.dmg))
+            Projectile(GameObject(GAME_OBJECT_DEFS['shot-normal'], self.entity.x, self.entity.y), dx, dy, self.entity.dmg))
         self.entity:faceMouse('idle-')
     end
 

@@ -19,6 +19,7 @@ require 'src/Wand'
 require 'src/Player'
 require 'src/StateMachine'
 require 'src/Util'
+require 'src/StatusText'
 
 require 'src/world/Level'
 
@@ -81,7 +82,8 @@ gFonts = {
     ['gothic-medium'] = love.graphics.newFont('fonts/GothicPixels.ttf', 16),
     ['gothic-large'] = love.graphics.newFont('fonts/GothicPixels.ttf', 32),
     ['freedom'] = love.graphics.newFont('fonts/FutilePro.ttf', 40),
-    ['freedom-small'] = love.graphics.newFont('fonts/FutilePro.ttf', 16)
+    ['freedom-small'] = love.graphics.newFont('fonts/FutilePro.ttf', 16),
+    ['freedom-status'] = love.graphics.newFont('fonts/FutilePro.ttf', 12)
 }
 
 gSounds = {
@@ -93,6 +95,15 @@ gSounds = {
     ['slime-split'] = love.audio.newSource('sounds/slime_split.wav', 'static'),
     ['open-chest'] = love.audio.newSource('sounds/open_chest.wav', 'static'),
     ['scroll'] = love.audio.newSource('sounds/scroll.wav', 'static')
+}
+
+gColors = {
+    ['white'] = { 1, 1, 1, 1 },
+    ['red'] = { 1, 0, 0, 1 },
+    ['pink'] = { 1, 0, 1, 1 },
+    ['green-spd'] = { 0, 1, 9/255, 1 },
+    ['green-hp'] = { 0.1, 0.9, 0, 1 },
+    ['orange'] = { 1, 165/255, 0, 1 }
 }
 
 gSounds['hit-enemy']:setVolume(0.4)

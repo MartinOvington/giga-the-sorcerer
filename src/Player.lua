@@ -15,7 +15,7 @@ function Player:init(def)
     self.dmg = def.dmg or 0.5
     self.atkPots = 0
     self.spdPots = 0
-    self.scrolls = 0
+    self.scrolls = 1
     self.shot_cooldown = 0
     self.levelNum = def.levelNum
     self.newGameNum = 1
@@ -77,10 +77,11 @@ function Player:useScroll(level)
         gSounds['scroll']:stop()
         gSounds['scroll']:play()
         local angle = 0
-        local x, y = push:toGame(love.mouse.getPosition())
+        local x = self.x - VIRTUAL_WIDTH / 2 + self.wand.x
+        local y = self.y - VIRTUAL_HEIGHT / 2 + self.wand.y
         for i = 1, SCROLL_PROJECTILES, 1 do
             table.insert(level.projectiles,
-            Projectile(GameObject(GAME_OBJECT_DEFS['shot'], x, y), 
+            Projectile(GameObject(GAME_OBJECT_DEFS['shot-scroll'], x, y), 
                 math.cos(angle), math.sin(angle), self.dmg))
             angle = angle + SCROLL_ANGLE_INC
         end
@@ -101,20 +102,24 @@ end
 
 function Player:heal()
     self.health = math.min(6, self.health + 2)
+    table.insert(self.statusTexts, StatusText(self, '+' .. tostring(2 * 100), gColors['green-hp']))
 end
 
 function Player:incDmg()
     self.atkPots = self.atkPots + 1
     self.dmg = self.dmg + POT_DMG_INCREASE
+    table.insert(self.statusTexts, StatusText(self, '+ATK', gColors['pink']))
 end
 
 function Player:incSpd()
     self.spdPots = self.spdPots + 1
     self.walkSpeed = self.walkSpeed + POT_SPD_INCREASE
+    table.insert(self.statusTexts, StatusText(self, '+SPD', gColors['green-spd']))
 end
 
 function Player:incScrolls()
     self.scrolls = self.scrolls + 1
+    table.insert(self.statusTexts, StatusText(self, '+Scroll', gColors['orange']))
 end
 
 function Player:render()

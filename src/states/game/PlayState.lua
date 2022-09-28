@@ -71,8 +71,10 @@ function PlayState:render()
         .. '/ ' ..tostring(WIN_CONDITION), 2, 10, VIRTUAL_WIDTH - 10, 'right')
     love.graphics.printf('ATK: ' .. tostring(self.player.atkPots), 2, VIRTUAL_HEIGHT - 35, VIRTUAL_WIDTH - 10, 'right')
     love.graphics.printf('SPD: ' .. tostring(self.player.spdPots), 2, VIRTUAL_HEIGHT - 20, VIRTUAL_WIDTH - 10, 'right')
-    love.graphics.printf('Scrolls: ' .. tostring(self.player.scrolls), 2, VIRTUAL_HEIGHT - 20, VIRTUAL_WIDTH - 10, 'left')
     if self.player.newGameNum >= 2 then
         love.graphics.printf('NG+' .. tostring(self.player.newGameNum - 1), 2, 10, VIRTUAL_WIDTH - 10, 'left')
     end
+    love.graphics.printf('X' .. tostring(self.player.scrolls), 38, VIRTUAL_HEIGHT - 29, VIRTUAL_WIDTH - 10, 'left')
+    love.graphics.draw(gTextures['drops'], gFrames['drops'][6],
+        20, VIRTUAL_HEIGHT - 30)
 end

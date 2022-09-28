@@ -43,6 +43,7 @@ function Entity:init(def)
     self.agro = false
     self.player = def.player
     self.slimeSize = def.slimeSize
+    self.statusTexts = {}
 end
 
 function Entity:checkSetAgro()
@@ -81,6 +82,7 @@ end
 
 function Entity:damage(dmg)
     self.health = self.health - dmg
+    table.insert(self.statusTexts, StatusText(self, '-' .. tostring(math.floor(dmg * 100)), gColors['red']))
 end
 
 function Entity:goInvulnerable(duration)
@@ -114,6 +116,9 @@ function Entity:update(dt)
 
     if self.currentAnimation then
         self.currentAnimation:update(dt)
+    end
+    for i, statusText in pairs(self.statusTexts) do
+        statusText:update(dt)
     end
 end
 
@@ -151,6 +156,8 @@ function Entity:render(adjacentOffsetX, adjacentOffsetY)
         love.graphics.rectangle('line', math.floor(self.x - 2), math.floor(self.y + self.height + 1), 17, 4)
     end
     love.graphics.setColor(1, 1, 1, 1)
-    
+    for i, statusText in pairs(self.statusTexts) do
+        statusText:render()
+    end
     self.x, self.y = self.x - (adjacentOffsetX or 0), self.y - (adjacentOffsetY or 0)
 end

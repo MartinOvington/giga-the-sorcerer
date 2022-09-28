@@ -168,7 +168,7 @@ GAME_OBJECT_DEFS = {
             }
         }
     },
-    ['shot'] = {
+    ['shot-normal'] = {
         type = 'shot',
         texture = 'projectile',
         frame = 1,
@@ -179,6 +179,20 @@ GAME_OBJECT_DEFS = {
         states = {
             ['live'] = {
                 frame = 1
+            },
+        }
+    },
+    ['shot-scroll'] = {
+        type = 'shot-scroll',
+        texture = 'projectile',
+        frame = 2,
+        width = 12,
+        height = 12,
+        solid = false,
+        defaultState = 'live',
+        states = {
+            ['live'] = {
+                frame = 2
             },
         }
     }

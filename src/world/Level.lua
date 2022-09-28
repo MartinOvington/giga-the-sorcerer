@@ -314,9 +314,11 @@ function Level:update(dt)
         for i = #self.entities, 1, -1 do
             local entity = self.entities[i]
             if not projectile.destroyed and not entity.dead and entity:collides(projectile) then
-                projectile.destroyed = true
-                entity:damage(projectile.dmg)
-                gSounds['hit-enemy']:play()
+                if projectile.type ~= 'shot-scroll' or projectile.distTravelled > SCROLL_TRAVEL_TIL_DESTROY then
+                    projectile.destroyed = true
+                    entity:damage(projectile.dmg)
+                    gSounds['hit-enemy']:play()
+                end
             end
         end
     end
