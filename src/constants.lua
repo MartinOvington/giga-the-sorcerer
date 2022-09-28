@@ -39,7 +39,7 @@ MAP_WIDTH = 60
 MAP_HEIGHT = 60
 NUM_ENTITIES = 30
 WIN_CONDITION = 25
-CHEST_FREQUENCY = 1 -- integer, higher is lower spawn chance
+CHEST_FREQUENCY = 18 -- integer, higher is lower spawn chance
 
 MAP_RENDER_OFFSET_X = (VIRTUAL_WIDTH - (MAP_WIDTH * TILE_SIZE)) / 2
 MAP_RENDER_OFFSET_Y = (VIRTUAL_HEIGHT - (MAP_HEIGHT * TILE_SIZE)) / 2

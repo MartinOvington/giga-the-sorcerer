@@ -82,7 +82,7 @@ end
 
 function Entity:damage(dmg)
     self.health = self.health - dmg
-    table.insert(self.statusTexts, StatusText(self, '-' .. tostring(math.floor(dmg * 100)), gColors['red']))
+    table.insert(self.statusTexts, StatusText(self, ' -' .. tostring(math.ceil(dmg * 10)), gColors['red']))
 end
 
 function Entity:goInvulnerable(duration)

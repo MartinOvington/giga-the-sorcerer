@@ -102,7 +102,7 @@ end
 
 function Player:heal()
     self.health = math.min(6, self.health + 2)
-    table.insert(self.statusTexts, StatusText(self, '+' .. tostring(2 * 100), gColors['green-hp']))
+    table.insert(self.statusTexts, StatusText(self, '+' .. tostring(2 * 10), gColors['green-hp']))
 end
 
 function Player:incDmg()
