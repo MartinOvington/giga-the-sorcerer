@@ -97,10 +97,17 @@ All enemies and the player have a health bar that sit below their sprite. The he
 ## Credits
 
 The following resources were used in creation of the game:
+
 Code - "Legend of 50" Colton Ogden
+
 Music - "2 soundtrack" by Carnotaurus Team
+
 Background images - "Cloudy Sky Pixel Art Infinite Background" by SavvyCow
+
 Desert walls (modified) - "16x16 Sand Dungeon Tileset" by SavvyCow
+
 Slime sprites (modified slightly) - "Animated Slimes 16x16 px" by Stealthix
+
 Tiles (modified) - "Another RPG Tileset (16x16)" by fikry13
+
 Castle tiles (modified) - "16x16 Dungeon Tileset" by 0x72
