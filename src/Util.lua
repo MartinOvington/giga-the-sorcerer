@@ -1,12 +1,3 @@
---[[
-    GD50
-    Legend of Zelda
-
-    Util Class
-
-    Author: Colton Ogden
-    cogden@cs50.harvard.edu
-]]
 
 --[[
     Given an "atlas" (a texture with multiple sprites), as well as a

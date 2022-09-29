@@ -1,10 +1,3 @@
---[[
-    GD50
-    Legend of Zelda
-
-    Author: Colton Ogden
-    cogden@cs50.harvard.edu
-]]
 
 require 'src/Dependencies'
 
@@ -27,7 +20,8 @@ function love.load()
         ['play'] = function() return PlayState() end,
         ['game-over'] = function() return GameOverState() end,
         ['next-level'] = function() return NextLevelState() end,
-        ['win'] = function() return WinState() end
+        ['win'] = function() return WinState() end,
+        ['controls'] = function() return ControlSchemeState() end
     }
     gStateMachine:change('start')
 

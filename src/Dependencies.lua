@@ -40,6 +40,7 @@ require 'src/states/game/PlayState'
 require 'src/states/game/StartState'
 require 'src/states/game/WinState'
 require 'src/states/game/NextLevelState'
+require 'src/states/game/ControlSchemeState'
 
 gTextures = {
     ['grass-tiles'] = love.graphics.newImage('graphics/grass-tiles.png'),
@@ -56,7 +57,7 @@ gTextures = {
     ['background-castle'] = love.graphics.newImage('graphics/background-castle.png'),
     ['menu-background'] = love.graphics.newImage('graphics/menu-background.jpg'),
     ['drops'] = love.graphics.newImage('graphics/drops.png'),
-    ['entities'] = love.graphics.newImage('graphics/entities.png'),
+    ['player'] = love.graphics.newImage('graphics/player.png'),
     ['projectile'] = love.graphics.newImage('graphics/projectile.png')
 }
 
@@ -70,7 +71,7 @@ gFrames = {
     ['medium-blue-slime'] = GenerateQuads(gTextures['medium-blue-slime'], 16, 16),
     ['small-red-slime'] = GenerateQuads(gTextures['small-red-slime'], 16, 16),
     ['medium-red-slime'] = GenerateQuads(gTextures['medium-red-slime'], 16, 16),
-    ['entities'] = GenerateQuads(gTextures['entities'], 16, 16),
+    ['player'] = GenerateQuads(gTextures['player'], 16, 16),
     ['drops'] = GenerateQuads(gTextures['drops'], 16, 16),
     ['projectile'] = GenerateQuads(gTextures['projectile'], 16, 16)
 }

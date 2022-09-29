@@ -20,7 +20,7 @@ function StatusText:render()
   if self.show then
     love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.color[4])
     love.graphics.setFont(gFonts['freedom-status'])
-    love.graphics.printf(self.text, self.entity.x - self.entity.width * 0.5, self.entity.y - self.y - 10, 1000, 'left')
+    love.graphics.printf(self.text, math.floor(self.entity.x - self.entity.width * 0.5), math.floor(self.entity.y - self.y - 10), 1000, 'left')
     love.graphics.setColor(1, 1, 1, 1)
   end
 end

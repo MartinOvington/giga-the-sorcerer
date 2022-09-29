@@ -1,50 +1,43 @@
---[[
-    GD50
-    Legend of Zelda
-
-    Author: Colton Ogden
-    cogden@cs50.harvard.edu
-]]
 
 ENTITY_DEFS = {
     ['player'] = {
         walkSpeed = PLAYER_WALK_SPEED,
         animations = {
             ['walk-left'] = {
-                frames = {16, 17, 18, 17},
+                frames = {4, 5, 6, 5}, 
                 interval = 0.155,
-                texture = 'entities'
+                texture = 'player'
             },
             ['walk-right'] = {
-                frames = {28, 29, 30, 29},
+                frames = {7, 8, 9, 8},
                 interval = 0.15,
-                texture = 'entities'
+                texture = 'player'
             },
             ['walk-down'] = {
-                frames = {4, 5, 6, 4},
+                frames = {1, 2, 3, 2},
                 interval = 0.15,
-                texture = 'entities'
+                texture = 'player'
             },
             ['walk-up'] = {
-                frames = {40, 41, 42, 40},
+                frames = {10, 11, 12, 11},
                 interval = 0.15,
-                texture = 'entities'
+                texture = 'player'
             },
             ['idle-left'] = {
-                frames = {17},
-                texture = 'entities'
+                frames = {5},
+                texture = 'player'
             },
             ['idle-right'] = {
-                frames = {29},
-                texture = 'entities'
+                frames = {8},
+                texture = 'player'
             },
             ['idle-down'] = {
-                frames = {5},
-                texture = 'entities'
+                frames = {2},
+                texture = 'player'
             },
             ['idle-up'] = {
-                frames = {41},
-                texture = 'entities'
+                frames = {11},
+                texture = 'player'
             }
         }
     },

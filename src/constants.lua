@@ -9,6 +9,7 @@ TILE_SIZE = 16
 --
 -- entity constants
 --
+HALF_ROOT_TWO = math.sqrt(2) / 2
 PLAYER_WALK_SPEED = 60
 AGRO_RANGE = 10 * TILE_SIZE
 AGRO_WALK_SPEED = 70

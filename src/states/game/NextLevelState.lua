@@ -1,15 +1,9 @@
---[[
-    GD50
-    Legend of Zelda
-
-    Author: Colton Ogden
-    cogden@cs50.harvard.edu
-]]
 
 NextLevelState = Class{__includes = BaseState}
 
 function NextLevelState:enter(params)
     self.player = params.player
+    self.player.statusTexts = {}
     self.player.x = VIRTUAL_WIDTH / 2 - 8
     self.player.y = VIRTUAL_HEIGHT / 2 - 11
 end

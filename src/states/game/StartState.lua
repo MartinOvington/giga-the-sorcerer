@@ -1,16 +1,13 @@
---[[
-    GD50
-    Legend of Zelda
-
-    Author: Colton Ogden
-    cogden@cs50.harvard.edu
-]]
 
 StartState = Class{__includes = BaseState}
 
 function StartState:update(dt)
     if love.keyboard.wasPressed('escape') then
         love.event.quit()
+    end
+
+    if love.keyboard.wasPressed('c') then
+        gStateMachine:change('controls')
     end
 
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
@@ -48,4 +45,5 @@ function StartState:render()
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.setFont(gFonts['freedom-small'])
     love.graphics.printf('Press Enter', 0, VIRTUAL_HEIGHT / 2 + 64, VIRTUAL_WIDTH, 'center')
+    love.graphics.printf('Press C for Controls', 0, VIRTUAL_HEIGHT / 2 + 85, VIRTUAL_WIDTH, 'center')
 end
