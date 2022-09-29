@@ -109,3 +109,4 @@ gColors = {
 
 gSounds['hit-enemy']:setVolume(0.4)
 gSounds['intro-music']:setVolume(0.3)
+musicPlaying = true

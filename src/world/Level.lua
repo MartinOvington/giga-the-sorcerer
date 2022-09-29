@@ -277,8 +277,8 @@ function Level:update(dt)
                         table.insert(entitiesToAdd, newEntity)
                     end
                 end
-                self:createDrop(entity)
                 self.numEntitiesKilled = self.numEntitiesKilled + 1
+                self:createDrop(entity)
             entity.dead = true
             end
         elseif not entity.dead then

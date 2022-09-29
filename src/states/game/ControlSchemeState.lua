@@ -28,6 +28,7 @@ function ControlSchemeState:render()
     love.graphics.printf('Left-mouse - Shoot', 20, 90, VIRTUAL_WIDTH, 'left')
     love.graphics.printf('Right-mouse - Cast Scroll', 20, 110, VIRTUAL_WIDTH, 'left')
     love.graphics.printf('X - Open Chest', 20, 130, VIRTUAL_WIDTH, 'left')
-    love.graphics.printf('ESC - Quite Game', 20, 150, VIRTUAL_WIDTH, 'left')
+    love.graphics.printf('M - Mute Music', 20, 150, VIRTUAL_WIDTH, 'left')
+    love.graphics.printf('ESC - Quite Game', 20, 170, VIRTUAL_WIDTH, 'left')
     love.graphics.printf('Press Enter to Close', 0, VIRTUAL_HEIGHT / 2 + 80, VIRTUAL_WIDTH, 'center')
 end

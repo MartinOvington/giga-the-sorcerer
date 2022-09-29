@@ -53,9 +53,16 @@ function love.mouse.wasPressed(button)
 end
 
 function love.update(dt)
+    if love.keyboard.wasPressed('m') then
+        if musicPlaying then
+            gSounds['intro-music']:pause()
+        else
+            gSounds['intro-music']:play()
+        end
+        musicPlaying = not musicPlaying
+    end
     Timer.update(dt)
     gStateMachine:update(dt)
-
     love.keyboard.keysPressed = {}
     love.mouse.buttonsPressed = {}
 end
