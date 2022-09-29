@@ -111,3 +111,5 @@ Slime sprites (modified slightly) - "Animated Slimes 16x16 px" by Stealthix
 Tiles (modified) - "Another RPG Tileset (16x16)" by fikry13
 
 Castle tiles (modified) - "16x16 Dungeon Tileset" by 0x72
+
+Font - "FutilePro" by EeveSomepx
