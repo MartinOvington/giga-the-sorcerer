@@ -6,7 +6,7 @@ Giga the Sorcerer is a top-down, 2D shooting game created in Lua using the LÖVE
 
 ## Features
 
-The game builds upon CS50's Zelda game that was worked on in an earlier part of the course. It makes significant changes to the core gameplay and adds many features, but reuses the game structure such as the state machine, collision detection, level generation and enemy AI.
+The game builds upon the "Legend of 50" game that was worked on in an earlier part of the course. It makes significant changes to the core gameplay and adds many features, but reuses the game structure such as the state machine, collision detection, level generation and enemy AI.
 
 ## Player
 
@@ -36,7 +36,7 @@ Enemies are slimes that attempt to damage the player by walking into them.
 
 ### Behaviours
 
-The base state of enemies is either idle or walking like in the CS50 Zelda game. When the player comes within a constant range of an enemy, the enemy transitions to an agro state. The transition can happen when either the player walks towards to enemy or the enemy walks towards the player. Once in the agro state, the enemy stays in the agro state until it either kills the player or is itself killed. The agro state causes the enemy to walk towards the player using a combination of left/right and up/down movements depending on whether the vector towards the player is dominated by its X or Y component. It prioritises walked along the axis of the largest component of the vector. The agro state inherits from the walking state, but overrides the AI method so that the direction it walks in is towards the player rather than walking randomly. The purpose of the agro behaviour is to add a challenge to the game, as the playing area is so big that the chances of a player otherwise colliding with an enemy is low as the player has a ranged attack.
+The base state of enemies is either idle or walking like in the Legend of 50 game. When the player comes within a constant range of an enemy, the enemy transitions to an agro state. The transition can happen when either the player walks towards to enemy or the enemy walks towards the player. Once in the agro state, the enemy stays in the agro state until it either kills the player or is itself killed. The agro state causes the enemy to walk towards the player using a combination of left/right and up/down movements depending on whether the vector towards the player is dominated by its X or Y component. It prioritises walked along the axis of the largest component of the vector. The agro state inherits from the walking state, but overrides the AI method so that the direction it walks in is towards the player rather than walking randomly. The purpose of the agro behaviour is to add a challenge to the game, as the playing area is so big that the chances of a player otherwise colliding with an enemy is low as the player has a ranged attack.
 
 Enemies can only enter the agro state after a grace period after spawning, which is one of the things done to make sure that the player is treated fairly when they first start a level. Agro'd enemies have free-pathing through obstacles to simplify the pathing. The free-pathing looks fine as the obstacles are fairly small in size, but a more complex pathing algorithm would be necessary with bigger obstacles.
 
@@ -58,7 +58,7 @@ Each of the three levels has its own uniquely coloured tiered enemy and its own 
 
 ### Level generation
 
-The basic level generation is similar to CS50's Zelda, in that there is initially a central play area consisting of randomly generated flat tiles and a square boundary around these. The proportion of the flat tiles is changes slightly to have more plain tiles, as otherwise it looked cluttered. Once the basic tiles are generated, a set number of obstacles are randomly placed in the play area and these have a random chance of being a chest. Obstacles cannot spawn on the player starting location, as this causes the player to become stuck. A set number of slime enemies are then added such that they are not spawned exactly on an obstacle where they would get stuck. In order to avoid the player from getting swamped by enemies when they first enter the game, all enemies are placed outside of the agro distance of the start position of the player. The actual spawn pattern area is then a rectangle of the play area with a circular hole in the middle representing the player and their agro radius.
+The basic level generation is similar to Legend of 50, in that there is initially a central play area consisting of randomly generated flat tiles and a square boundary around these. The proportion of the flat tiles is changes slightly to have more plain tiles, as otherwise it looked cluttered. Once the basic tiles are generated, a set number of obstacles are randomly placed in the play area and these have a random chance of being a chest. Obstacles cannot spawn on the player starting location, as this causes the player to become stuck. A set number of slime enemies are then added such that they are not spawned exactly on an obstacle where they would get stuck. In order to avoid the player from getting swamped by enemies when they first enter the game, all enemies are placed outside of the agro distance of the start position of the player. The actual spawn pattern area is then a rectangle of the play area with a circular hole in the middle representing the player and their agro radius.
 
 ### Chests
 
@@ -94,4 +94,13 @@ Both the player and enemies maintain a set of decaying and rising status texts t
 
 All enemies and the player have a health bar that sit below their sprite. The health bar inside the rectangular outline decreases in length from right to left as the enemy or player loses health and increases when the player heals. The length of the bar represents their current health as a _proportion_ of the starting health and changes colour from green to yellow to red as the proportion decreases below certain thresholds. These health bars give the player information as to how close they are themselves to dying and how much damage they have done to individual enemies.
 
-## Credit
+## Credits
+
+The following resources were used in creation of the game:
+Code - "Legend of 50" Colton Ogden
+Music - "2 soundtrack" by Carnotaurus Team
+Background images - "Cloudy Sky Pixel Art Infinite Background" by SavvyCow
+Desert walls (modified) - "16x16 Sand Dungeon Tileset" by SavvyCow
+Slime sprites (modified slightly) - "Animated Slimes 16x16 px" by Stealthix
+Tiles (modified) - "Another RPG Tileset (16x16)" by fikry13
+Castle tiles (modified) - "16x16 Dungeon Tileset" by 0x72
