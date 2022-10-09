@@ -4,6 +4,10 @@
 
 Giga the Sorcerer is a top-down, 2D shooting game created in Lua using the LÖVE2D framework. The aim of the game is to progress through a series of three distinctly themed levels by shooting slime enemies. When the player has slain a given number of slimes, a key spawns for them to progress to the next level. Enemies drop potions that heal or increase the stats of the player. Chests spawn in each level, which provides powerful, but limited use scrolls that can be used to clear groups of slimes. Each level has increasingly harder slimes and the player wins the game by finishing the third level. The player can then optionally choose to continue through progressively more difficult _new-game-plus_ (NG+) stages that repeat the three levels.
 
+## Video of Gameplay
+
+[![Giga the Sorcerer Video](gigathesorcerer.jpg)](https://www.youtube.com/watch?v=oPgC_QMje4E)
+
 ## Features
 
 The game builds upon the "Legend of 50" game that was worked on in an earlier part of the course. It makes significant changes to the core gameplay and adds many features, but reuses the game structure such as the state machine, collision detection, level generation and enemy AI.
